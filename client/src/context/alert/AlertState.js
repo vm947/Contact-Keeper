@@ -12,23 +12,20 @@ const AlertState = (props) => {
   //actions
   //Set Alert
 
-  const setAlert = (msg, type) => {
-      const id = uuidv4();
-      dispatch({ 
-          type: SET_ALERT, 
-          payload: {msg, type, id}
-        });
-        setTimeout(() => dispatch({type: REMOVE_ALERT, payload: id}), 5000);
+  const setAlert = (msg, type, timeout = 5000) => {
+    const id = uuidv4();
+    dispatch({
+      type: SET_ALERT,
+      payload: { msg, type, id },
+    });
+    setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id }), timeout);
   };
 
   return (
     <AlertContext.Provider
       value={{
-        token: state.token,
-        isAlertenticated: state.isAlertenticated,
-        loading: state.loading,
-        user: state.user,
-        error: state.error,
+      alerts: state,
+      setAlert
       }}
     >
       {props.children}
